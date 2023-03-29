@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# repo/wandb/lightning generated
+lightning_logs/
+adapter-bert/adapter-bert/
+wandb/
+data/
+
 # Distribution / packaging
 .Python
 build/
