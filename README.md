@@ -33,7 +33,7 @@ cd adapter-bert
 │   ├── cfgs                   # configurations to run
 │   ├── config.py              # default configuration
 │   ├── dataset.py             # LightningDataModule for GLUE tasks
-│   ├── config.py              # main file for training
+│   ├── train.py              # main file for training
 │   ├── model                  # model architectures
 │       ├── bert.py            # modifications to huggingface/transformers/bert
 │       ├── adapter.py         # adapter module

@@ -12,6 +12,7 @@ import evaluate
 from model.bert import BertForSequenceClassification
 
 class GLUETransformer(LightningModule):
+    
     def __init__(
         self,
         model_name_or_path: str,
@@ -42,6 +43,7 @@ class GLUETransformer(LightningModule):
             "glue", self.hparams.task_name, experiment_id=datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
         )
         self.validation_step_outputs = []
+        self.trainable_params_count = 0
 
     def forward(self, **inputs):
         return self.model(**inputs)
@@ -121,7 +123,13 @@ class GLUETransformer(LightningModule):
                     "weight_decay": 0.0,
                 },
             ]
-        
+
+        # count the total no. of trainable params
+        for group in optimizer_grouped_parameters:
+            for param in group["params"]:
+                self.trainable_params_count += param.numel()
+        print(f'Total Trainable params: {self.trainable_params_count}')
+
         optimizer = torch.optim.AdamW(optimizer_grouped_parameters, lr=self.hparams.learning_rate, eps=self.hparams.adam_epsilon)
         
         scheduler = get_linear_schedule_with_warmup(

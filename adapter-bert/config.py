@@ -24,20 +24,20 @@ _C.VAL_BATCH = 32
 _C.TASK_NAME = 'cola'
 # whether to use full-finetuning or adapter
 _C.TRAINING_STRATEGY = 'adapter'
-# adapter bottleneck size
+# adapter bottleneck size (8, 64, 256)
 _C.ADAPTER_BOTTLENECK = 64
 #max sequece length
 _C.MAX_SEQ_LENGTH = 128
 # model name
 _C.MODEL_NAME = 'bert-large-uncased'
-# lr
+# lr (3e-5, 3e-4, 3e-3)
 _C.LEARNING_RATE = 3e-5
 # weight decay
 _C.WEIGHT_DECAY = 0.0
 # warmup steps
 _C.WARMUP_STEPS = 0
-# number of epochs
-_C.EPOCHS = 50
+# number of epochs (3, 20)
+_C.EPOCHS = 20
 # trainer accelerator
 _C.ACCELERATOR = 'auto'
 

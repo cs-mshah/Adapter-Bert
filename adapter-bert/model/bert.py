@@ -752,9 +752,9 @@ class BertPreTrainedModel(PreTrainedModel):
             module.weight.data.fill_(1.0)
         elif isinstance(module, AdapterModule):
             # correct place to do near zero initialization
-            module.proj_down.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
+            module.proj_down.weight.data.normal_(mean=0.0, std=1e-7)
             module.proj_down.bias.data.zero_()
-            module.proj_up.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
+            module.proj_up.weight.data.normal_(mean=0.0, std=1e-7)
             module.proj_up.bias.data.zero_()
 
     def _set_gradient_checkpointing(self, module, value=False):

@@ -16,6 +16,8 @@ if __name__ == '__main__':
     if args.config:
         cfg.merge_from_file(args.config)
 
+    os.environ['CUDA_VISIBLE_DEVICES']='4'
+    
     seed_everything(cfg.RNG_SEED)
     os.environ["TOKENIZERS_PARALLELISM"] = 'False'
     wandb_logger = WandbLogger(name=f'{cfg.MODEL_NAME}-{cfg.TRAINING_STRATEGY}',
@@ -46,7 +48,8 @@ if __name__ == '__main__':
         eval_splits=dm.eval_splits
     )
     
-    callbacks = [EarlyStopping(monitor='val_loss', patience=5)]
+    callbacks = None
+    # callbacks = [EarlyStopping(monitor='val_loss', patience=5)]
     
     trainer = Trainer(
         max_epochs=cfg.EPOCHS,
@@ -66,5 +69,6 @@ if __name__ == '__main__':
         "random_seed": cfg.RNG_SEED, 
         "max_sequence_length": cfg.MAX_SEQ_LENGTH,
         "num_gpus": cfg.NUM_GPUS,
-        "num_workers": cfg.NUM_WORKERS
+        "num_workers": cfg.NUM_WORKERS,
+        "Trainable params": model.trainable_params_count
         })
